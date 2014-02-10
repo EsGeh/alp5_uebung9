@@ -1,0 +1,4 @@
+grant codebase "file:bin/"
+{
+permission java.security.AllPermission;
+};

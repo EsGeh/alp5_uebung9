@@ -1,0 +1,4 @@
+
+
+export CLASSPATH="./bin"
+rmiregistry
