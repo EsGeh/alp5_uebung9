@@ -2,12 +2,12 @@ import cherrypy
 import random
 
 cherrypy.config.update(
-    {'server.socket_host': '0.0.0.0'} )
+	{'server.socket_host': '0.0.0.0'} )
 
 acchash = {}
 
 class Root:
-    import cherrypy
+	import cherrypy
 
 class Root:
 	def getID():
@@ -33,32 +33,31 @@ class Root:
 		acchash[id] = 0
 		return id
 
-    def acc(self, wert=None):
-        wert = int(wert)
-        reqcookie = cherrypy.request.cookie
-        key = reqcookie['cookieName'].value
-        key = int(key)
-        if key in acchash:
-            acchash[key] += wert
-        else:
-            acchash[key] = wert
-	return calcWebsite(key)
-    acc.exposed = True
+	def acc(self, wert=None):
+		wert = int(wert)
+		reqcookie = cherrypy.request.cookie
+		key = reqcookie['cookieName'].value
+		key = int(key)
+		if key in acchash:
+		    acchash[key] += wert
+		else:
+		    acchash[key] = wert
+		return calcWebsite(key)
+	acc.exposed = True
 
 	def calcWebsite(id):
 		res = """<html><body>Hi."""
 		return res + """<form action="acc" method="post"> 
-	    <p>Wert</p><input type="text" name="wert" value=""
-		size="15" maxlength="40" pattern="\d+" required/>
-	    <p><input type="submit" value="Erhöhe den Wert!"/></p>
-	</form>Der WERT beträgt:"""+str(acchash[key])+"""</body></html>"""
+			<p>Wert</p><input type="text" name="wert" value=""
+			size="15" maxlength="40" pattern="\d+" required/>
+			<p><input type="submit" value="Erhöhe den Wert!"/></p>
+			</form>Der WERT beträgt:"""+str(acchash[key])+"""</body></html>"""
 
 
 
-    def index(self):
-	id = self.getID()
-	return self.calcWebsite(id)
-        #return(self.readCookie())
-    index.exposed = True
+	def index(self):
+		id = self.getID()
+		return self.calcWebsite(id)
+	index.exposed = True
 
 cherrypy.quickstart(Root())
