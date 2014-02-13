@@ -12,7 +12,7 @@ Benutzung:
 	4. "localhost counter" eingeben
 	"counter" ist der Name der zu startenden Anwendung (dies ist die einzige implementierte Anwendung)
 
-Ordnerstruktur:
+Ordnerstruktur in ./aufgabe1/ :
 	./src		enthält den Quellcode.
 	./src/client 	enthält den Quellcode für den Klienten
 	./src/server 	enthält den Quellcode für den Server
