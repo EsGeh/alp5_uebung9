@@ -7,13 +7,10 @@ cherrypy.config.update(
 acchash = {}
 
 class Root:
-	import cherrypy
-
-class Root:
 	def getID():
 		if 'cookieName' in cherrypy.request.cookie:
 			return self.readCookie()
-		else
+		else:
 			return self.sendCookie()
 	
 	def readCookie():
