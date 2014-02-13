@@ -20,6 +20,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Scanner;
 
 import sun.org.mozilla.javascript.ast.TryStatement;
 
@@ -36,9 +37,25 @@ public class Client {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Client client = new Client("localhost");
+		Scanner in = new Scanner(System.in);
+		String host = null;
+		String app = null;
+		{
+			System.out.print("enter URL: ");
+			String[] input = in.nextLine().split(" ");
+			if( input.length != 2)
+			{
+				System.out.println(input[0]);
+				System.out.println(input[1]);
+				System.out.println("syntax: host app");
+				return;
+			}
+			host = input[0];
+			app = input[1];
+		}
+		Client client = new Client(host);
 		try {
-			client.run();
+			client.run(app);
 		}
 		catch(Exception e) {
 			System.out.println("could not create client: "+ e.getMessage());
@@ -50,7 +67,7 @@ public class Client {
 		this.port = 8080;
 	}
 	
-	public void run() throws AccessException, RemoteException, NotBoundException {
+	public void run(String appName) throws AccessException, RemoteException, NotBoundException {
 		// 1. create a security Manager:
 		if( System.getSecurityManager() == null ) {
 			System.setSecurityManager(new SecurityManager());
@@ -77,14 +94,14 @@ public class Client {
 		System.out.println("fetching data...");
 		Counter data = null;
 		{
-			GetData<Counter> getData = (GetData<Counter> )reg.lookup("GetData");
+			GetData<Counter> getData = (GetData<Counter> )reg.lookup(appName + "GetData");
 			data = getData.get(sessionID);
 		}
 		System.out.println("fetching browser...");
 		GUI<Counter> browser = null;
 		try {
 			
-			BrowserGenerator<Counter> browserGen = (BrowserGenerator<Counter> )reg.lookup("BrowserGenerator");
+			BrowserGenerator<Counter> browserGen = (BrowserGenerator<Counter> )reg.lookup(appName + "BrowserGenerator");
 			browser = browserGen.get(sessionID);
 		}
 		catch(IncorrectSessionID e) {
@@ -98,7 +115,7 @@ public class Client {
 	private int fetchSessionID( Registry reg, String appName ) throws IOException, NotBoundException {
 		int i = tryToLoad( appName );
 		if( i == -1 ){
-			SessionGenerator sessionGen = (SessionGenerator )reg.lookup("SessionGenerator");
+			SessionGenerator sessionGen = (SessionGenerator )reg.lookup(appName + "SessionGenerator");
 			i = sessionGen.getSessionID();
 			
 			// memorize sessionID for future sessions:
@@ -140,7 +157,7 @@ public class Client {
 		System.out.println("cookie created!");
 	}
 	
-	private static String appName = "Counter";
+	//private static String appName = "Counter";
 	private static String cookieDir = "cookies";
 	
 	private String host;

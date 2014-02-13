@@ -43,7 +43,7 @@ public class Server {
 			System.out.println("exception while creating remote objects: " + e.getMessage());
 		}
 		try {
-			server.run();
+			server.run("counter");
 			System.out.println("running..." );
 		}
 		catch( Exception e ) {
@@ -66,19 +66,19 @@ public class Server {
 		getData = new GetDataImpl<Counter>(cookieToCounter);
 	}
 	
-	public void run() throws RemoteException {
+	public void run(String appName) throws RemoteException {
 		// 1. create a security Manager:
 		if( System.getSecurityManager() == null ) {
 			System.setSecurityManager(new SecurityManager());
 		}
 		//2.
 		
-		test = new Test();
+		/*test = new Test();
 		Test2Abstract test2 = new Test2();
 		testStub = (ITest )UnicastRemoteObject.exportObject(test, port);
 		ITest test2Stub = (ITest )UnicastRemoteObject.exportObject(test2, port);
 		reg.rebind("Test", testStub);
-		reg.rebind("Test2", test2Stub);
+		reg.rebind("Test2", test2Stub);*/
 		
 		/*CounterImpl counter = new CounterImpl();
 		Counter counterStub = (Counter )UnicastRemoteObject.exportObject(counter, port);
@@ -88,9 +88,9 @@ public class Server {
 		getDataStub = (GetData<Counter> )UnicastRemoteObject.exportObject(getData, port);
 		browserGenStub = (BrowserGenerator<Counter> )UnicastRemoteObject.exportObject(browserGen, port);
 		
-		reg.rebind("SessionGenerator",sessionGenStub);
-		reg.rebind("GetData", getDataStub);
-		reg.rebind("BrowserGenerator", browserGenStub);
+		reg.rebind(appName + "SessionGenerator",sessionGenStub);
+		reg.rebind(appName + "GetData", getDataStub);
+		reg.rebind(appName + "BrowserGenerator", browserGenStub);
 	}
 	
 	private int port;
