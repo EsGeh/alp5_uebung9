@@ -1,0 +1,31 @@
+Aufgabe (2)
+
+Wir haben uns dazu entschieden die Anwendung "Akkumulator" aus Aufgabe (1) c)
+als Webanwendung zu implementieren.
+
+Verwendete Technologien:
+Wir haben uns entschieden Python(3) zu benutzen und dabei zusätzlich zur
+Standardbibliothek die Bibliothek "Cherrypy" eingesetzt. Diese muss, zusätzlich
+zu einer aktuellen Version von Python-3 über einen der üblichen Wege (System-Paketverwaltung,
+pip, easyinstall) installiert sein. Man testet die erfolgreiche Installation, indem 
+man "import cherrypy" innerhalb der interaktiven Python-Umgebung aufruft. Die Python-Version
+wird beim aufrufen der Python-Umgebung angegeben (ob nun python oder noch python3 Python-3
+startet, hängt von der verwendeten Distribution ab).
+
+Man startet den server einfach durch "python akkumulator.py". Dann lässt sich im
+Browser über localhost:8080 lokal, bzw. IP-Adresse:8080 im lokalen Netzwerk die Web-
+anwendung aufrufen.
+
+Die Webanwendung nutzt Cookies zur Identifizierung der Nutzer. Will man von Vorne mit
+dem Akkumulieren anfangen, so muss man manuell im Browser den Cookie löschen. Ein Neustart
+des Servers allein führt zu Fehlern, wenn der alte Cookie noch existiert. Man muss
+in diesem Fall auch den Cookie löschen.
+
+Als Eingaben gehen nur Ganze Zahlen durch(also auch negative Werte, mit vorangestelltem "-").
+Vorangestellte Nullen werden ignoriert, alles andere durch HTML-Formular-Pattern-Matching
+abgefangen.
+
+CherryPy ist sehr leichtgewichtig. Es wird also kein Code "generiert". Alles (auch das HTML!)
+befindet sich in dem einen File "akkumulator.py" im Ordner "aufgabe2". CherryPy gibt uns
+einen einfachen Webserver sowie Methoden auf Cookies zuzugreifen. Man kann durch die
+kleine Größe des Skripts einfach nachvollziehen, was unsere Anwendung wie tut.
