@@ -7,20 +7,20 @@ cherrypy.config.update(
 acchash = {}
 
 class Root:
-	def getID():
+	def getID(self):
 		if 'cookieName' in cherrypy.request.cookie:
 			return self.readCookie()
 		else:
 			return self.sendCookie()
 	
-	def readCookie():
+	def readCookie(self):
 		reqcookie = cherrypy.request.cookie
 		wert = 0
 		key = reqcookie['cookieName'].value
 		key = int(key)
 		return key
 
-	def sendCookie():
+	def sendCookie(self):
 		rescookie = cherrypy.response.cookie
 		id = random.getrandbits(64)
 		rescookie['cookieName'] = id
@@ -39,16 +39,16 @@ class Root:
 		    acchash[key] += wert
 		else:
 		    acchash[key] = wert
-		return calcWebsite(key)
+		return self.calcWebsite(key)
 	acc.exposed = True
 
-	def calcWebsite(id):
+	def calcWebsite(self,id):
 		res = """<html><body>Hi."""
 		return res + """<form action="acc" method="post"> 
 			<p>Wert</p><input type="text" name="wert" value=""
 			size="15" maxlength="40" pattern="\d+" required/>
 			<p><input type="submit" value="Erhöhe den Wert!"/></p>
-			</form>Der WERT beträgt:"""+str(acchash[key])+"""</body></html>"""
+			</form>Der WERT beträgt:"""+str(acchash[id])+"""</body></html>"""
 
 
 
