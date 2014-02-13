@@ -23,6 +23,7 @@ class Root:
 
     def readCookie(self):
          reqcookie = cherrypy.request.cookie
+         wert = 0
          key = reqcookie['cookieName'].value
          key = int(key)
          if key in acchash:
@@ -37,7 +38,7 @@ class Root:
     <input type="text" name="wert" value=""
         size="15" maxlength="40"  pattern="\d+" required />
     <p><input type="submit" value="Erhöhe den Wert!"/></p>
-</form></body></html>"""
+</form>Der WERT beträgt:"""+str(acchash[key])+"""</body></html>"""
     readCookie.exposed = True
 
 
