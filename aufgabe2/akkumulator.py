@@ -22,7 +22,7 @@ class Root:
     setCookie.exposed = True
 
     def readCookie(self):
-         reqcookie = cherrypy.request.cookie
+         reqcookie = cherrypy.response.cookie
          wert = 0
          key = reqcookie['cookieName'].value
          key = int(key)
@@ -30,7 +30,6 @@ class Root:
              acchash[key] += wert
          else:
              acchash[key] = wert
-         
          res = """<html><body>Hallo Benutzer! Wir wünschen dir alles Gute!
                 """
          return res + """<form action="acc" method="post"> 
