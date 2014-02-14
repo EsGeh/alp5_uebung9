@@ -1,3 +1,29 @@
+Alp3 - Übung 9
+
+Aufgabe 1.
+Benutzung:
+	1. java RMI-Server starten:
+		$ ./startJavaRMI
+	2. den Server für die Anwendung starten:
+		$ ./startRMIServer.sh
+	3. den Klienten starten
+		$ ./startRMIClient.sh
+		enter URL:
+	4. "localhost counter" eingeben
+	"counter" ist der Name der zu startenden Anwendung (dies ist die einzige implementierte Anwendung)
+
+Ordnerstruktur in ./aufgabe1/ :
+	./src		enthält den Quellcode.
+	./src/client 	enthält den Quellcode für den Klienten
+	./src/server 	enthält den Quellcode für den Server
+	./src/common 	enthält Quellcode, der sowohl für den Klienten als auch für den Anbieter benötigt wird (hauptsächlich Java-Interfaces)
+	
+	./bin		enthält das Kompilat
+	
+Erklärung: Beim ersten Aufruf sollte sich der Client im Unterordner "cookies" eine Session-ID merken. Nach einem Neustart des Klienten wird die alte Session wieder aufgegriffen (siehe Konsolen-Ausgabe des Klienten). Das heißt, die Zählerstände bleiben erhalten. Um eine neue Session-ID zu bekommen, kann der Ordner "cookies" einfach gelöscht werden.
+"counter" ist bisher die einzige unterstützte Anwendung. Die Architektur erlaubt allerdings das einfache Hinzufügen von weiteren Anwendungen.
+
+
 Aufgabe (2)
 
 Wir haben uns dazu entschieden die Anwendung "Akkumulator" aus Aufgabe (1) c)
